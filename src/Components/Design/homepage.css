@@ -1,0 +1,73 @@
+/* homepage.css */
+.home-page {
+    width: 100%;
+    height: auto;
+    background-color: lavender;
+   
+  }
+  
+  .hero-banner {
+    
+    background-size: cover;
+    background-position: center;
+    color: #f1f1f1;
+    text-align: center;
+    padding: 100px 0;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    color: black;
+  }
+  
+  .features {
+    padding: 50px 0;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .feature {
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testimonials {
+    background-color: lavender;
+    padding: 50px 0;
+    text-align: center;
+  }
+  
+  .testimonial {
+    max-width: 500px;
+    margin: 0 auto 30px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cta-section {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+  }
+  
+  .cta-button {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  
+  .cta-button:hover {
+    background-color: #f0f0f0;
+  }
+  

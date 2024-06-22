@@ -1,0 +1,107 @@
+/* Reset some default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+   /* Light gray background */
+   background-color: lavenderblush;
+ 
+   
+}
+
+.settings-form {
+    /* White background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 400px;
+    margin: 20px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: 2px solid red;
+
+}
+
+.settings-form:hover {
+    background-color: #fcfcfc; /* Slightly lighter background on hover */
+}
+
+.settings-form h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333333;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+.settings-form:hover h2 {
+    color: #007bff; /* Text color on hover */
+}
+
+.settings-table {
+    background-color: lavender;
+    width: 100%;
+    margin: 10px;
+    font-size: medium;
+    width: 900px;
+    height: 600px;
+   
+
+}
+
+.settings-table td {
+    padding: 15px 0;
+}
+
+.settings-table input[type="text"],
+.settings-table select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cccccc; /* Light gray border */
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    background-color: #f7f7f7; /* Light gray background for inputs */
+}
+
+.settings-table input[type="text"]:focus,
+.settings-table select:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.settings-table select {
+    cursor: pointer;
+}
+
+.settings-table option {
+    cursor: pointer;
+}
+
+.settings-button {
+    width: 100%;
+    background-color: #007bff; /* Blue button */
+    color: #ffffff; /* White text */
+    border: none;
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 30px;
+}
+
+.settings-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
