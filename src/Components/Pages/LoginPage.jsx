@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Design/Loginpage.css';
 
-function LoginPage() {
+function LoginPage({ setIsAuthenticated }) {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -14,35 +14,35 @@ function LoginPage() {
     }
   }, [navigate]);
   
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
   const handleLogin = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
-try{
-
-  let result = await fetch('http://localhost:9000/login', {
-    method: 'post',
-    body: JSON.stringify({ username, password }),
-    headers: {
-      'Content-Type': 'application/json'
+    try {
+      let result = await fetch(`${apiUrl}/login`, {
+        method: 'post',
+        body: JSON.stringify({ username, password }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      result = await result.json();
+      console.log(result);
+      if (result.success) { // Check the success field
+        localStorage.setItem("authToken", result.token); // Assuming 'authToken' is returned
+        localStorage.setItem("user", JSON.stringify(result.user));
+        setIsAuthenticated(true); // Update the authentication status
+        navigate('/'); // Navigate to the homepage or dashboard
+      } else {
+        // Handle login failure (e.g., show an error message)
+        alert('Login failed: ' + result.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('An error occurred during login. Please try again.');
     }
-  });
-  result = await result.json();
-  console.log(result);
-  if (result.success) { // Check the success field
-    localStorage.setItem("user", JSON.stringify(result.user));
-    navigate('/'); // Navigate to the homepage or dashboard
-  } else {
-    // Handle login failure (e.g., show an error message)
-    alert('Login failed: ' + result.message);
-  }
-
-}catch(error){
-  console.error('Error during login:', error);
-    alert('An error occurred during login. Please try again.');
-
-}
-   
-   
   };
+  
 
   const handleForgotPassword = () => {
     navigate('/forgot-password'); // Navigate to the forgot password page

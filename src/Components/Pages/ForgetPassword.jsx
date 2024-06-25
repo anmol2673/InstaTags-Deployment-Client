@@ -1,8 +1,11 @@
+
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Design/forgetpassword.css';
 
 function ForgotPassword() {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -12,7 +15,7 @@ function ForgotPassword() {
   const handleSendOtp = async (event) => {
     event.preventDefault();
 
-    const result = await fetch('http://localhost:9000/forget-password', {
+    const result = await fetch(`${apiUrl}/forget-password`, {
       method: 'post',
       body: JSON.stringify({ email }),
       headers: {
@@ -30,7 +33,7 @@ function ForgotPassword() {
   const handleResetPassword = async (event) => {
     event.preventDefault();
 
-    const result = await fetch('http://localhost:9000/reset-password', {
+    const result = await fetch(`${apiUrl}/reset-password`, {
       method: 'post',
       body: JSON.stringify({ email, otp, newPassword }),
       headers: {

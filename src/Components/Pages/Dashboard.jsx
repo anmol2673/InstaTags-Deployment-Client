@@ -1,9 +1,12 @@
+
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Design/dashboard.css';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const [savedWriteTopics, setSavedWriteTopics] = useState([]); // State to store fetched images and their data
   const [selectedImage, setSelectedImage] = useState(null); // State to track selected image
   const navigate = useNavigate();
@@ -12,7 +15,7 @@ const Dashboard = () => {
     // Function to fetch saved images and their data from the server
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:9000/api/images'); // Fetch data from the server
+        const response = await axios.get(`${apiUrl}/api/images`); // Fetch data from the server
         setSavedWriteTopics(response.data); // Update state with fetched data
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -20,7 +23,7 @@ const Dashboard = () => {
     };
 
     fetchImages(); // Call the fetchImages function when the component mounts
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+  }, [apiUrl]); // Empty dependency array ensures this effect runs only once on mount
 
   const handleGenerate = () => {
     navigate('/new-caption');

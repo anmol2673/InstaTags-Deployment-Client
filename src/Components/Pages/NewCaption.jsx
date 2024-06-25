@@ -5,6 +5,9 @@ import '../Design/NewCaption.css';
 import { SettingsContext } from './SettingsContext'; // Import the context
 
 const NewCaption = () => {
+
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+  
   const { settings } = useContext(SettingsContext); // Consume the settings context
   const [selectedLanguage, setSelectedLanguage] = useState(settings.language);
   const [numberOfTags, setNumberOfTags] = useState(10);
@@ -23,13 +26,16 @@ const NewCaption = () => {
     setSelectedModel(settings.model);
   }, [settings.language, settings.model]);
 
+
   const handleSave = async () => {
+    console.log("inside handle save");
     if (description) {
       try {
-        const response = await axios.post('http://localhost:9000/save', {
+        const response = await axios.post(`${apiUrl}/save`, {
           imageUrl: imageUrl,
           description,
         });
+        console.log("after try in  handle save");
         console.log('Save response:', response.data);
         alert('Image URL and description saved successfully.');
       } catch (error) {
@@ -40,30 +46,56 @@ const NewCaption = () => {
       alert('No description to save.');
     }
   };
-
+  
+  const handleGenerate = async () => {
+    if (!keywords) {
+      alert('Keywords are mandatory.');
+      return;
+    }
+  
+    if (!imageUrl) {
+      alert('Please upload an image first.');
+      return;
+    }
+  
+    console.log("before try in handle generate");
+    try {
+      const generateResponse = await axios.post(`${apiUrl}/api/generate-description`, {
+        model: selectedModel,
+        imageUrl,
+        keywords,
+      });
+      console.log("after try in handle generate");
+      setDescription(generateResponse.data.description);
+    } catch (error) {
+      console.error('Error generating description:', error);
+      alert('An error occurred while generating the description.');
+    }
+  };
+  
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     console.log('Selected file:', file);
-
+  
     if (!validFileTypes.includes(file.type)) {
       alert("Image should be in jpg/png format.");
       return;
     }
-
+  
     setImage(file);
-
+  
     const formData = new FormData();
     formData.append('image', file);
-
+  
     try {
-      const response = await fetch('http://localhost:9000/upload', {
+      const response = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         body: formData,
       });
-
+  
       const data = await response.json();
       console.log('Upload response:', data);
-
+  
       if (response.ok) {
         setImageUrl(data.imageUrl); // Assuming the backend sends the image URL back in the response
         alert('Image uploaded successfully.');
@@ -75,31 +107,8 @@ const NewCaption = () => {
       alert('An error occurred while uploading the image.');
     }
   };
-
-  const handleGenerate = async () => {
-    if (!keywords) {
-      alert('Keywords are mandatory.');
-      return;
-    }
-
-    if (!imageUrl) {
-      alert('Please upload an image first.');
-      return;
-    }
-
-    try {
-      const generateResponse = await axios.post('http://localhost:9000/api/generate-description', {
-        model: selectedModel,
-        imageUrl,
-        keywords,
-      });
-      setDescription(generateResponse.data.description);
-    } catch (error) {
-      console.error('Error generating description:', error);
-      alert('An error occurred while generating the description.');
-    }
-  };
-
+  
+  
   const handleDescriptionChange = (e) => {
     setDescription(e.target.innerText);
   };
