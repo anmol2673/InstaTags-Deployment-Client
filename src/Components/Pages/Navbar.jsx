@@ -13,6 +13,10 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
+     // Prevent navigation after logout
+     setMenuOpen(false); // Close menu if open
+     navigate('/', { replace: true }); // Replace current URL with home to prevent back navigation
+     alert('Logged out successfully.'); // Show alert to user
   }
 
 
