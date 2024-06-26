@@ -7,33 +7,31 @@ import Dashboard from './Components/Pages/Dashboard';
 import LoginPage from './Components/Pages/LoginPage';
 import NewCaption from './Components/Pages/NewCaption';
 import Settings from './Components/Pages/Settings';
-import Logout from './Components/Pages/Logout';
 import Footer from './Components/Pages/Footer';
 import PrivateComponent from './Components/PrivateComponent';
-import ForgotPassword from './Components/Pages/ForgetPassword';
-import { SettingsProvider } from './Components/Pages/SettingsContext'; // Import the provider
+import ForgotPassword from './Components/Pages/ForgotPassword';
+import { SettingsProvider } from './Components/Pages/SettingsContext';
 
 function App() {
-  // State to track user authentication status
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check if the user is authenticated
   useEffect(() => {
-    const token = localStorage.getItem('authToken'); // Ensure 'authToken' is set correctly during login
+    const token = localStorage.getItem('authToken');
     if (token) {
       setIsAuthenticated(true);
     }
   }, []);
-const handleLogout = () => {
+
+  const handleLogout = () => {
     localStorage.clear();
     setIsAuthenticated(false);
   };
-  
+
   return (
-    <div className='App'>
-      <SettingsProvider> {/* Wrap the whole app with SettingsProvider */}
+    <div className="App">
+      <SettingsProvider>
         <BrowserRouter>
-          {isAuthenticated && <Navbar />}
+          {isAuthenticated && <Navbar onLogout={handleLogout} />}
           <Routes>
             <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -42,9 +40,7 @@ const handleLogout = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/new-caption" element={<NewCaption />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
             </Route>
-            {/* Redirect any unknown routes to the login page */}
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
           {isAuthenticated && <Footer />}
