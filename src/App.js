@@ -24,7 +24,11 @@ function App() {
       setIsAuthenticated(true);
     }
   }, []);
-
+const handleLogout = () => {
+    localStorage.clear();
+    setIsAuthenticated(false);
+  };
+  
   return (
     <div className='App'>
       <SettingsProvider> {/* Wrap the whole app with SettingsProvider */}
@@ -38,7 +42,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/new-caption" element={<NewCaption />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/logout" element={<Logout />} />
+              <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
             </Route>
             {/* Redirect any unknown routes to the login page */}
             <Route path="*" element={<Navigate to="/login" />} />
