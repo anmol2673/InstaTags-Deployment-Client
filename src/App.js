@@ -9,7 +9,7 @@ import NewCaption from './Components/Pages/NewCaption';
 import Settings from './Components/Pages/Settings';
 import Footer from './Components/Pages/Footer';
 import PrivateComponent from './Components/PrivateComponent';
-import ForgotPassword from './Components/Pages/ForgotPassword';
+import ForgotPassword from './Components/Pages/ForgetPassword';
 import { SettingsProvider } from './Components/Pages/SettingsContext';
 
 function App() {
