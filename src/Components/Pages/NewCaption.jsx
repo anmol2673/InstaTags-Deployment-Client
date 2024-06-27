@@ -1,5 +1,6 @@
 // NewContent.js
 import React, { useState, useRef, useEffect, useContext } from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import '../Design/NewCaption.css';
 import { SettingsContext } from './SettingsContext'; // Import the context
@@ -18,6 +19,8 @@ const NewCaption = () => {
   const [isEditing, setIsEditing] = useState(false);
   const descriptionDivRef = useRef(null);
   const [imageUrl, setImageUrl] = useState('');
+  const navigate = useNavigate();
+
 
   const validFileTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 
@@ -38,6 +41,8 @@ const NewCaption = () => {
         console.log("after try in  handle save");
         console.log('Save response:', response.data);
         alert('Image URL and description saved successfully.');
+        navigate('/dashboard');
+        
       } catch (error) {
         console.error('Error:', error);
         alert('An error occurred while saving the data. Please try again.');
